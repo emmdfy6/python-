@@ -1,0 +1,66 @@
+import random
+
+def game_guess():
+    num = random.randint(1, 20)
+    tries = 0
+    print("\n🔢 حدس عدد بین 1 تا 20")
+    while True:
+        guess = input("عددت رو بگو (یا 'خروج'): ")
+        if guess == "خروج":
+            break
+        guess = int(guess)
+        tries += 1
+        if guess == num:
+            print(f"🎉 برنده شدی در {tries} تلاش!")
+            break
+        elif guess < num:
+            print("📈 برو بالا")
+        else:
+            print("📉 بیا پایین")
+
+def game_rps():
+    choices = ["سنگ", "کاغذ", "قیچی"]
+    score_user = 0
+    score_pc = 0
+    print("\n🪨 سنگ-کاغذ-قیچی")
+    while True:
+        pc = random.choice(choices)
+        user = input("انتخاب کن (سنگ/کاغذ/قیچی یا 'خروج'): ")
+        if user == "خروج":
+            print(f"امتیاز نهایی: تو {score_user} - کامپیوتر {score_pc}")
+            break
+        if user not in choices:
+            print("❌ فقط سنگ/کاغذ/قیچی")
+            continue
+        print(f"تو: {user} | کامپیوتر: {pc}")
+        if user == pc:
+            print("🤝 مساوی")
+        elif (user == "سنگ" and pc == "قیچی") or \
+             (user == "کاغذ" and pc == "سنگ") or \
+             (user == "قیچی" and pc == "کاغذ"):
+            print("✅ بردی!")
+            score_user += 1
+        else:
+            print("❌ باختی!")
+            score_pc += 1
+
+# منوی اصلی
+while True:
+    print("\n" + "=" * 30)
+    print("🎮 منوی بازی‌ها")
+    print("1️⃣ حدس عدد")
+    print("2️⃣ سنگ-کاغذ-قیچی")
+    print("3️⃣ خروج")
+    print("=" * 30)
+    
+    choice = input("عدد بازی رو انتخاب کن: ")
+    
+    if choice == "1":
+        game_guess()
+    elif choice == "2":
+        game_rps()
+    elif choice == "3":
+        print("👋 خدانگهدار!")
+        break
+    else:
+        print("❌ فقط 1، 2 یا 3")
