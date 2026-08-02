@@ -1,21 +1,90 @@
-MIT License
+import random
+import os
 
-Copyright (c) 2026 emmdfy6
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+def print_header(text):
+    print("\n" + "=" * 50)
+    print(f"🎮 {text} 🎮")
+    print("=" * 50)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+def game_guess():
+    clear()
+    num = random.randint(1, 20)
+    tries = 0
+    print_header("حدس عدد")
+    print("💡 بین 1 تا 20 حدس بزن")
+    while True:
+        guess = input("👉 عددت رو بگو (یا 'خروج'): ")
+        if guess == "خروج":
+            break
+        try:
+            guess = int(guess)
+        except:
+            print("❌ فقط عدد وارد کن!")
+            continue
+        tries += 1
+        if guess == num:
+            print(f"🎉 برنده شدی در {tries} تلاش!")
+            input("\n🔹 Enter بزن تا برگردی...")
+            break
+        elif guess < num:
+            print("📈 برو بالا")
+        else:
+            print("📉 بیا پایین")
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+def game_rps():
+    clear()
+    choices = ["سنگ", "کاغذ", "قیچی"]
+    score_user = 0
+    score_pc = 0
+    print_header("سنگ-کاغذ-قیچی")
+    while True:
+        pc = random.choice(choices)
+        user = input("\n👉 انتخاب کن (سنگ/کاغذ/قیچی یا 'خروج'): ")
+        if user == "خروج":
+            print(f"\n🏆 امتیاز نهایی: تو {score_user} - کامپیوتر {score_pc}")
+            input("\n🔹 Enter بزن تا برگردی...")
+            break
+        if user not in choices:
+            print("❌ فقط سنگ/کاغذ/قیچی بنویس!")
+            continue
+        print(f"\n🧑 تو: {user}  |  💻 کامپیوتر: {pc}")
+        if user == pc:
+            print("🤝 مساوی!")
+        elif (user == "سنگ" and pc == "قیچی") or \
+             (user == "کاغذ" and pc == "سنگ") or \
+             (user == "قیچی" and pc == "کاغذ"):
+            print("✅ برنده شدی! +1 امتیاز")
+            score_user += 1
+        else:
+            print("❌ باختی! کامپیوتر +1 امتیاز")
+            score_pc += 1
+
+# منوی اصلی
+while True:
+    clear()
+    print("\n" + "🌟" * 25)
+    print("🎮  خوش آمدی به بازی‌های پایتون  🎮")
+    print("🌟" * 25)
+    print("\n📌 1️⃣  حدس عدد")
+    print("📌 2️⃣  سنگ-کاغذ-قیچی")
+    print("📌 3️⃣  خروج از بازی")
+    print("\n" + "-" * 50)
+    
+    choice = input("👉 شماره بازی رو انتخاب کن: ")
+    
+    if choice == "1":
+        game_guess()
+    elif choice == "2":
+        game_rps()
+    elif choice == "3":
+        clear()
+        print("\n" + "❤️" * 20)
+        print("🙋 خدانگهدار! موفق باشی!")
+        print("❤️" * 20 + "\n")
+        break
+    else:
+        print("❌ فقط 1، 2 یا 3 وارد کن!")
+        input("🔹 Enter بزن تا دوباره تلاش کنی...")
